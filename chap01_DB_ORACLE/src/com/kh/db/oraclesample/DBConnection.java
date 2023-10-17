@@ -13,7 +13,8 @@ public class DBConnection {
 		//selectBank();
 		//selectCafe();
 		//selectIf();
-		selectUniversity();
+		//selectUniversity();
+		insertBank();
 	}
 	
 	static void selectBank() {
@@ -194,4 +195,39 @@ public class DBConnection {
 		}
 		
 	}
+
+	static void insertBank() {
+		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String user = "khbank";
+		String password = "1234";
+		
+		try {
+			Connection con = DriverManager.getConnection(url, user, password);
+			String insertQuery = "INSERT INTO BANK (account_id, account_number, account_name, balance, branch_name, last_transaction_date)"
+							   + "VALUES (?,?,?,?,?,?)";
+			PreparedStatement insertState = con.prepareStatement(insertQuery);
+			
+			insertState.setInt(1, 13);
+			insertState.setString(2, "9876543219");
+			insertState.setString(3, "사아자");
+			insertState.setDouble(4, 1500.00);
+			insertState.setString(5, "kh");
+			insertState.setDate(6, Date.valueOf("2023-10-16"));
+			
+			insertState.setInt(1, 12);
+			insertState.setString(2, "5453216585");
+			insertState.setString(3, "차카타");
+			insertState.setDouble(4, 9500.50);
+			insertState.setString(5, "동쪽지점");
+			insertState.setDate(6, Date.valueOf("2023-10-04"));
+			
+			int rowsInsert = insertState.executeUpdate();
+			System.out.println(rowsInsert + "row 추가 됨");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
 }
