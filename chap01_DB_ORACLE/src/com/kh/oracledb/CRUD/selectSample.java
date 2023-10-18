@@ -1,4 +1,4 @@
-package com.kh.db.oraclesample;
+package com.kh.oracledb.CRUD;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -7,17 +7,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DBConnection {
+public class selectSample {
 
 	public static void main(String[] args) {
-		//selectBank();
+		//selectAll();
 		//selectCafe();
-		//selectIf();
-		//selectUniversity();
-		insertBank();
+		//selectOne();
+		selectUniversity();
 	}
 	
-	static void selectBank() {
+	static void selectAll() {
 		//데이터베이스 연결 정보
 		//1. 드라이버 연결 : Oracle JDBC 드라이버   클래스명
 		String driver = "oracle.jdbc.driver.OracleDriver";
@@ -33,7 +32,7 @@ public class DBConnection {
 			con = DriverManager.getConnection(url, user, password);
 			System.out.println("데이터베이스 연결 성공");
 		    //SELECT 쿼리
-			String selectQuery = "SELECT * FROM BANK";
+			String selectQuery = "SELECT * FROM BANK ORDER BY 1";
 			PreparedStatement selectState = con.prepareStatement(selectQuery);
 			ResultSet result = selectState.executeQuery();
 			
@@ -72,7 +71,7 @@ public class DBConnection {
 			con = DriverManager.getConnection(url, user, password);
 			System.out.println("데이터베이스 연결 확인");
 			//select * from menu 작성해서 menu 테이블 가져오기
-			String selectQuery = "SELECT * FROM MENU";
+			String selectQuery = "SELECT * FROM MENU ORDER BY 1";
 			PreparedStatement selectState = con.prepareStatement(selectQuery);
 			ResultSet result = selectState.executeQuery();
 			
@@ -91,7 +90,7 @@ public class DBConnection {
 		}
 	}
 	
-	static void selectIf() {
+	static void selectOne() {
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
 		String user = "khbank";
 		String password = "1234";
@@ -155,7 +154,7 @@ public class DBConnection {
 		}
 	}
 	
-	static void selectUniversity() {
+	static void selectUniversity() {		
 		String driver = "oracle.jdbc.driver.OracleDriver";
 		
 		String url = "jdbc:oracle:thin:@localhost:1521:xe";
@@ -196,38 +195,5 @@ public class DBConnection {
 		
 	}
 
-	static void insertBank() {
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
-		String user = "khbank";
-		String password = "1234";
-		
-		try {
-			Connection con = DriverManager.getConnection(url, user, password);
-			String insertQuery = "INSERT INTO BANK (account_id, account_number, account_name, balance, branch_name, last_transaction_date)"
-							   + "VALUES (?,?,?,?,?,?)";
-			PreparedStatement insertState = con.prepareStatement(insertQuery);
-			
-			insertState.setInt(1, 13);
-			insertState.setString(2, "9876543219");
-			insertState.setString(3, "사아자");
-			insertState.setDouble(4, 1500.00);
-			insertState.setString(5, "kh");
-			insertState.setDate(6, Date.valueOf("2023-10-16"));
-			
-			insertState.setInt(1, 12);
-			insertState.setString(2, "5453216585");
-			insertState.setString(3, "차카타");
-			insertState.setDouble(4, 9500.50);
-			insertState.setString(5, "동쪽지점");
-			insertState.setDate(6, Date.valueOf("2023-10-04"));
-			
-			int rowsInsert = insertState.executeUpdate();
-			System.out.println(rowsInsert + "row 추가 됨");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-	}
 	
 }
