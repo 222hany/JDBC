@@ -1,0 +1,13 @@
+sc.close(); 닫는 순서 (가장 먼저 시작한 것을 가장 먼저 닫는 게 좋다 !)
+
+1. 결과 집합 닫기 ResultSet
+2. SQL 연결 닫기 PreparedStatement
+3. SQL 닫기 Connection
+4. Scanner
+
+
+sc.nextLine(); 과 sc.next(); 주의점
+	sc.next는 옆에 Line이 개행문자이기 때문에 엔터 역할을 한다.
+	그래서 println과 함께 쓸 경우 enter가 두 번 들어간 것과 같아서 값을 입력할 시간도 없이 바로 넘어가 버린다.
+	또한 nextInt나 nextDouble을 넣고 print만 넣어서 출력하면서 nextLine이 있어도 마찬가지로 입력할 시간 없이 넘어가므로 nextInt나 nextDouble을 입력하고나서
+	sc.nextLine();으로 넘어가준 뒤에 입력하는 게 좋다.
